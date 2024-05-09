@@ -1,0 +1,23 @@
+cmake_minimum_required(VERSION 3.14)
+
+project(tlv_parser)
+
+set(CMAKE_C_STANDARD 11)
+set(CMAKE_C_STANDARD_REQUIRED True)
+
+set(PROJECT_COMMON_DIR ${CMAKE_CURRENT_SOURCE_DIR}/common)
+set(PROJECT_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include)
+set(PROJECT_SRC_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src)
+
+file(GLOB SRC_FILES ${PROJECT_SRC_DIR}/*.c)
+file(GLOB COMMON_SRCS ${PROJECT_COMMON_DIR}/*.c)
+
+add_executable(${PROJECT_NAME}
+    ${SRC_FILES}
+    ${COMMON_SRCS}
+)
+
+target_include_directories(${PROJECT_NAME} PUBLIC
+    ${PROJECT_COMMON_DIR}
+    ${PROJECT_INCLUDE_DIR}
+)
