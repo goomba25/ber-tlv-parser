@@ -44,7 +44,6 @@ size_t HexStr2Byte(char *hex, char *out)
 
 uint16_t swapEndian16(uint16_t num)
 {
-    // Swap endian (big to little) or (little to big)
     uint16_t b0, b1;
     uint16_t res;
 
@@ -58,7 +57,6 @@ uint16_t swapEndian16(uint16_t num)
 
 uint32_t swapEndian32(uint32_t num)
 {
-    // Swap endian (big to little) or (little to big)
     uint32_t b0, b1, b2, b3;
     uint32_t res;
 
@@ -70,29 +68,6 @@ uint32_t swapEndian32(uint32_t num)
     res = b0 | b1 | b2 | b3;
 
     return res;
-}
-
-void printTLV(TLV_ST *tlv)
-{
-    DEBUG_LOG("%02X ", tlv->tag);
-
-    DEBUG_LOG("%02X ", tlv->length);
-
-    if (tlv->type == CONSTRUCTED_DATA_OBJECT)
-    {
-        DEBUG_LOG("\n\t");
-    }
-    else
-    {
-        DEBUG_LOG("\t");
-    }
-
-    for (uint32_t idx = 0U; idx < tlv->realLength; idx++)
-    {
-        DEBUG_LOG("%02x", tlv->value[idx]);
-    }
-
-    DEBUG_LOG("\n==========================================\n");
 }
 
 void HEXDUMP(uint8_t *B, uint32_t L)

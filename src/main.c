@@ -18,16 +18,19 @@ int main(void)
         0U,
     };
 
-    GetDsaKey();
+    keyLength = HexStr2Byte(DSA_PRI_KEY, hex);
+    DEBUG_LOG("========================== INPUT ==========================\n");
+    HEXDUMP(hex, keyLength);
+    DEBUG_LOG("===========================================================\n");
 
-    keyLength = HexStr2Byte(DSA_key[0].data, hex);
-
-    /* TEST */
-    result = tlv_GetAttributes(hex, keyLength, &objectTpl);
-
-    for (uint32_t idx = 0U; idx < KEY_ATTR_MAX_SIZE; idx++)
+    objectTpl.header.type = KEY_TYPE_DSA_PRIKEY;
+    result                = tlv_DecodeDsa(hex, keyLength, &objectTpl);
+    if (result == SUCCESS)
     {
-        HEXDUMP(objectTpl.attribute[idx].data, objectTpl.attribute[idx].dataLength);
+        for (uint32_t idx = 0U; idx < 10U; idx++)
+        {
+            HEXDUMP(objectTpl.attribute[idx].data, objectTpl.attribute[idx].dataLength);
+        }
     }
 
 exit:

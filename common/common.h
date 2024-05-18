@@ -30,30 +30,14 @@
         goto exit;                                                                                                   \
     }
 
-#define function_enter()                                                 \
-    if (IS_DEBUG)                                                        \
-    {                                                                    \
-        printf("%sENTER%s %s\n", COLOR_BLUE, COLOR_RESET, __FUNCTION__); \
-    }
+#define function_enter() printf("%sENTER%s %s\n", COLOR_BLUE, COLOR_RESET, __FUNCTION__);
 
-#define function_exit()                                                 \
-    if (IS_DEBUG)                                                       \
-    {                                                                   \
-        printf("%sEXIT%s %s\n", COLOR_BLUE, COLOR_RESET, __FUNCTION__); \
-    }
+#define function_exit()  printf("%sEXIT%s %s\n", COLOR_BLUE, COLOR_RESET, __FUNCTION__);
 
 typedef enum {
-    PRIMITIVE_DATA_OBJECT,
+    PRIMITIVE_DATA_OBJECT = 0,
     CONSTRUCTED_DATA_OBJECT,
 } TLV_DATA_TYPE;
-
-typedef struct {
-    TLV_DATA_TYPE type;
-    uint16_t tag;
-    uint32_t length;
-    uint32_t realLength;
-    uint8_t value[4096U];
-} TLV_ST;
 
 typedef struct {
     uint8_t data[DATA_MAX_SIZE];
@@ -61,13 +45,26 @@ typedef struct {
 } DATA_ST;
 
 typedef struct {
+    TLV_DATA_TYPE type;
+    uint16_t tag;
+    uint32_t length;
+    uint32_t realLength;
+    uint8_t value[DATA_MAX_SIZE];
+} TLV_ST;
+
+typedef struct {
+    uint32_t type;
+    uint32_t keyType;
+} TA_TEMPLATE_HEADER_ST;
+
+typedef struct {
+    TA_TEMPLATE_HEADER_ST header;
     DATA_ST attribute[KEY_ATTR_MAX_SIZE];
 } KEY_ATTR_ST;
 
 size_t HexStr2Byte(char *hex, char *out);
 uint16_t swapEndian16(uint16_t num);
 uint32_t swapEndian32(uint32_t num);
-void printTLV(TLV_ST *tlv);
 
 void HEXDUMP(uint8_t *B, uint32_t L);
 
