@@ -1,6 +1,15 @@
 #ifndef DEFINES_H
 #define DEFINES_H
 
+typedef enum {
+    ASN_TAG_TYPE_INTEGER           = 0x02,
+    ASN_TAG_TYPE_BIT_STRING        = 0x03,
+    ASN_TAG_TYPE_OCTET_STRING      = 0x04,
+    ASN_TAG_TYPE_OBJECT_IDENTIFIER = 0x06,
+    ASN_RAW_TYPE_SEQUENCE          = 0x30,
+    ASN_RAW_TYPE_EXPLICIT          = 0xA0,
+} TAG_TYPE;
+
 /* TLV */
 #define TAG_DATA_OBJECT_FIRST_BYTE 0x20
 #define TAG_NUMBER_FIRST_BYTE      0x1F
